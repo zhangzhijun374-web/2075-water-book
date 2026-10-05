@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b2239" />
+<meta name="description" content="《2075：寻找最后一滴水》电子图册" />
+<title>2075：寻找最后一滴水</title>
+<style>
+:root{--bg:#071521;--panel:#0d2638;--text:#eef9ff;--muted:#a9c6d8;--line:rgba(255,255,255,.12);--shadow:0 14px 45px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -20%,#164966 0,#0a2234 32%,#071521 70%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+a{color:inherit}.top{position:sticky;top:0;z-index:10;background:rgba(7,21,33,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar{max-width:1100px;margin:auto;min-height:60px;padding:10px 14px;display:flex;align-items:center;gap:10px}.brand{min-width:0;flex:1}.brand b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand small{color:var(--muted)}
+.actions{display:flex;gap:8px}.btn{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--text);padding:9px 12px;border-radius:999px;text-decoration:none;font-size:13px;cursor:pointer}.btn:hover{background:rgba(255,255,255,.12)}
+.hero{max-width:900px;margin:28px auto 10px;padding:0 14px;text-align:center}.hero h1{font-size:clamp(25px,6vw,44px);margin:0 0 10px}.hero p{color:var(--muted);margin:0 auto;line-height:1.7}.tip{display:inline-block;margin-top:14px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}
+.reader{width:min(96vw,1040px);margin:26px auto 70px}.page{margin:0 0 20px;scroll-margin-top:78px}.page img{display:block;width:100%;height:auto;border-radius:16px;box-shadow:var(--shadow);background:#10283b}.num{text-align:center;color:var(--muted);font-size:12px;padding-top:7px}
+.footer{text-align:center;color:var(--muted);padding:0 18px 50px;line-height:1.8}.float{position:fixed;right:14px;bottom:max(14px,env(safe-area-inset-bottom));z-index:11;border:1px solid var(--line);background:rgba(9,31,47,.9);backdrop-filter:blur(12px);color:#fff;border-radius:999px;padding:10px 13px;box-shadow:var(--shadow);cursor:pointer}
+@media(max-width:560px){.bar{min-height:56px}.brand small{display:none}.btn span{display:none}.btn{padding:9px 11px}.hero{margin-top:20px}.page{margin-bottom:12px}.page img{border-radius:9px}.reader{width:100%;padding:0 6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="bar">
+  <div class="brand"><b>2075：寻找最后一滴水</b><small>电子图册 · 共 31 页</small></div>
+  <div class="actions">
+    <a class="btn" href="2075-last-drop-of-water.pdf" target="_blank" rel="noopener">PDF <span>原文件</span></a>
+    <button class="btn" id="share">分享</button>
+    <button class="btn" id="full">全屏</button>
+  </div>
+</div></header>
+<section class="hero"><h1>2075：寻找最后一滴水</h1><p>向下滑动即可阅读完整图册。页面会按需加载，适合手机扫码阅读。</p><span class="tip">💧 节约用水 · 人人有责</span></section>
+<main class="reader" id="reader"></main>
+<footer class="footer">每一滴水，都是未来的希望。<br>完整 PDF 可通过顶部按钮打开。</footer>
+<button class="float" id="top" aria-label="返回顶部">↑ 顶部</button>
+<script>
+const reader=document.getElementById('reader');
+for(let i=1;i<=31;i++){
+  const sec=document.createElement('section'); sec.className='page'; sec.id='p'+i;
+  const img=document.createElement('img'); img.alt=`第 ${i} 页`; img.loading=i<=2?'eager':'lazy'; img.decoding='async'; img.src=`pages/page-${String(i).padStart(2,'0')}.webp`;
+  const n=document.createElement('div'); n.className='num'; n.textContent=`${i} / 31`;
+  sec.append(img,n); reader.append(sec);
+}
+document.getElementById('top').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+document.getElementById('full').onclick=async()=>{try{if(!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen()}catch(e){}};
+document.getElementById('share').onclick=async()=>{const data={title:document.title,text:'《2075：寻找最后一滴水》电子图册',url:location.href};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(location.href);alert('链接已复制')}}catch(e){}};
+</script>
+</body></html>
